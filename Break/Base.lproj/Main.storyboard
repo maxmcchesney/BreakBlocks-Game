@@ -10,6 +10,11 @@
             <string>Cubano-Regular</string>
             <string>Cubano-Regular</string>
             <string>Cubano-Regular</string>
+            <string>Cubano-Regular</string>
+            <string>Cubano-Regular</string>
+            <string>Cubano-Regular</string>
+            <string>Cubano-Regular</string>
+            <string>Cubano-Regular</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -40,7 +45,7 @@
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="livesLeft">
-                                                <integer key="value" value="3"/>
+                                                <integer key="value" value="5"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <variation key="default">
@@ -126,17 +131,111 @@
                                             <action selector="playGame" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Kvu-VT-Irg"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lives Lost:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3gj-As-3lV">
+                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="28" id="Kl6-mx-Fsw"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Cubano-Regular" family="Cubano" pointSize="20"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="Kl6-mx-Fsw"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=compact-widthClass=regular">
+                                            <mask key="constraints">
+                                                <exclude reference="Kl6-mx-Fsw"/>
+                                            </mask>
+                                        </variation>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bricks Broken:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PAw-aQ-rno">
+                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="28" id="3RU-b1-B4P"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Cubano-Regular" family="Cubano" pointSize="20"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="3RU-b1-B4P"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=compact-widthClass=regular">
+                                            <mask key="constraints">
+                                                <exclude reference="3RU-b1-B4P"/>
+                                            </mask>
+                                        </variation>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Levels Passed:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X8E-as-SkE">
+                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="28" id="2yM-aS-1Bj"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Cubano-Regular" family="Cubano" pointSize="20"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="2yM-aS-1Bj"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=compact-widthClass=regular">
+                                            <mask key="constraints">
+                                                <exclude reference="2yM-aS-1Bj"/>
+                                            </mask>
+                                        </variation>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score Total:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dXh-63-ReT">
+                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="28" id="GwT-wB-aGf"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Cubano-Regular" family="Cubano" pointSize="20"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="GwT-wB-aGf"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=compact-widthClass=regular">
+                                            <mask key="constraints">
+                                                <exclude reference="GwT-wB-aGf"/>
+                                            </mask>
+                                        </variation>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GAME OVER" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hY3-Sp-erZ">
+                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" name="Cubano-Regular" family="Cubano" pointSize="80"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="centerY" secondItem="X8E-as-SkE" secondAttribute="centerY" constant="26" id="09e-Zq-q3l"/>
+                                    <constraint firstAttribute="trailing" secondItem="dXh-63-ReT" secondAttribute="trailing" constant="67" id="2QA-vV-vNp"/>
                                     <constraint firstAttribute="centerX" secondItem="SXs-rH-7fP" secondAttribute="centerX" id="517-AN-NdI"/>
                                     <constraint firstItem="vce-Ri-lpY" firstAttribute="top" secondItem="Etd-eb-U4l" secondAttribute="top" id="5VJ-CI-wL9"/>
                                     <constraint firstAttribute="trailing" secondItem="MuX-Ut-SjF" secondAttribute="trailing" constant="15" id="A7F-gB-d07"/>
                                     <constraint firstAttribute="centerX" secondItem="vce-Ri-lpY" secondAttribute="centerX" id="G9u-Pa-2ND"/>
+                                    <constraint firstAttribute="trailing" secondItem="X8E-as-SkE" secondAttribute="trailing" constant="67" id="N7Z-2a-kaZ"/>
+                                    <constraint firstAttribute="centerY" secondItem="3gj-As-3lV" secondAttribute="centerY" constant="26" id="PAe-lu-Hs9"/>
+                                    <constraint firstAttribute="centerY" secondItem="dXh-63-ReT" secondAttribute="centerY" constant="-10" id="S89-bG-plB"/>
                                     <constraint firstAttribute="centerX" secondItem="30p-JB-vUX" secondAttribute="centerX" id="Slq-gq-xv8"/>
                                     <constraint firstItem="MuX-Ut-SjF" firstAttribute="top" secondItem="Etd-eb-U4l" secondAttribute="top" id="Upk-e4-YOx"/>
+                                    <constraint firstAttribute="trailing" secondItem="dXh-63-ReT" secondAttribute="trailing" constant="60" id="Wud-yE-DRD"/>
+                                    <constraint firstItem="SXs-rH-7fP" firstAttribute="leading" secondItem="3gj-As-3lV" secondAttribute="trailing" constant="61" id="bBt-GL-prM"/>
+                                    <constraint firstItem="3gj-As-3lV" firstAttribute="leading" secondItem="Etd-eb-U4l" secondAttribute="leading" constant="74" id="ffd-N5-OXg"/>
+                                    <constraint firstItem="PAw-aQ-rno" firstAttribute="leading" secondItem="Etd-eb-U4l" secondAttribute="leading" constant="32" id="hek-7K-u1V"/>
+                                    <constraint firstItem="hY3-Sp-erZ" firstAttribute="top" secondItem="Etd-eb-U4l" secondAttribute="top" constant="18" id="jB0-fC-82F"/>
                                     <constraint firstAttribute="centerY" secondItem="SXs-rH-7fP" secondAttribute="centerY" constant="8" id="ncq-kd-QCn"/>
+                                    <constraint firstItem="SXs-rH-7fP" firstAttribute="leading" secondItem="PAw-aQ-rno" secondAttribute="trailing" constant="61" id="pmf-xR-7JA"/>
+                                    <constraint firstAttribute="centerX" secondItem="hY3-Sp-erZ" secondAttribute="centerX" id="rkI-hc-1ST"/>
+                                    <constraint firstAttribute="trailing" secondItem="X8E-as-SkE" secondAttribute="trailing" constant="60" id="szZ-Tm-PbF"/>
+                                    <constraint firstAttribute="trailing" secondItem="X8E-as-SkE" secondAttribute="trailing" constant="23" id="t7R-9R-Uih"/>
+                                    <constraint firstAttribute="centerY" secondItem="PAw-aQ-rno" secondAttribute="centerY" constant="-10" id="tCW-J8-3E8"/>
                                     <constraint firstAttribute="bottom" secondItem="30p-JB-vUX" secondAttribute="bottom" constant="63" id="xbu-nx-igQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="dXh-63-ReT" secondAttribute="trailing" constant="23" id="yGj-DQ-NYI"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="subviews">
@@ -144,14 +243,35 @@
                                         <exclude reference="MuX-Ut-SjF"/>
                                         <exclude reference="SXs-rH-7fP"/>
                                         <exclude reference="30p-JB-vUX"/>
+                                        <exclude reference="3gj-As-3lV"/>
+                                        <exclude reference="PAw-aQ-rno"/>
+                                        <exclude reference="X8E-as-SkE"/>
+                                        <exclude reference="dXh-63-ReT"/>
+                                        <exclude reference="hY3-Sp-erZ"/>
                                     </mask>
                                     <mask key="constraints">
+                                        <exclude reference="PAe-lu-Hs9"/>
+                                        <exclude reference="ffd-N5-OXg"/>
+                                        <exclude reference="jB0-fC-82F"/>
+                                        <exclude reference="rkI-hc-1ST"/>
+                                        <exclude reference="hek-7K-u1V"/>
+                                        <exclude reference="tCW-J8-3E8"/>
                                         <exclude reference="5VJ-CI-wL9"/>
                                         <exclude reference="G9u-Pa-2ND"/>
                                         <exclude reference="517-AN-NdI"/>
+                                        <exclude reference="bBt-GL-prM"/>
                                         <exclude reference="ncq-kd-QCn"/>
+                                        <exclude reference="pmf-xR-7JA"/>
                                         <exclude reference="Slq-gq-xv8"/>
                                         <exclude reference="xbu-nx-igQ"/>
+                                        <exclude reference="09e-Zq-q3l"/>
+                                        <exclude reference="N7Z-2a-kaZ"/>
+                                        <exclude reference="szZ-Tm-PbF"/>
+                                        <exclude reference="t7R-9R-Uih"/>
+                                        <exclude reference="2QA-vV-vNp"/>
+                                        <exclude reference="S89-bG-plB"/>
+                                        <exclude reference="Wud-yE-DRD"/>
+                                        <exclude reference="yGj-DQ-NYI"/>
                                         <exclude reference="A7F-gB-d07"/>
                                         <exclude reference="Upk-e4-YOx"/>
                                     </mask>
@@ -162,14 +282,35 @@
                                         <include reference="MuX-Ut-SjF"/>
                                         <include reference="SXs-rH-7fP"/>
                                         <include reference="30p-JB-vUX"/>
+                                        <include reference="3gj-As-3lV"/>
+                                        <include reference="PAw-aQ-rno"/>
+                                        <include reference="X8E-as-SkE"/>
+                                        <include reference="dXh-63-ReT"/>
+                                        <include reference="hY3-Sp-erZ"/>
                                     </mask>
                                     <mask key="constraints">
+                                        <include reference="PAe-lu-Hs9"/>
+                                        <include reference="ffd-N5-OXg"/>
+                                        <include reference="jB0-fC-82F"/>
+                                        <include reference="rkI-hc-1ST"/>
+                                        <include reference="hek-7K-u1V"/>
+                                        <include reference="tCW-J8-3E8"/>
                                         <include reference="5VJ-CI-wL9"/>
                                         <include reference="G9u-Pa-2ND"/>
                                         <include reference="517-AN-NdI"/>
+                                        <exclude reference="bBt-GL-prM"/>
                                         <include reference="ncq-kd-QCn"/>
+                                        <exclude reference="pmf-xR-7JA"/>
                                         <include reference="Slq-gq-xv8"/>
                                         <include reference="xbu-nx-igQ"/>
+                                        <include reference="09e-Zq-q3l"/>
+                                        <exclude reference="N7Z-2a-kaZ"/>
+                                        <include reference="szZ-Tm-PbF"/>
+                                        <exclude reference="t7R-9R-Uih"/>
+                                        <exclude reference="2QA-vV-vNp"/>
+                                        <include reference="S89-bG-plB"/>
+                                        <include reference="Wud-yE-DRD"/>
+                                        <exclude reference="yGj-DQ-NYI"/>
                                         <include reference="A7F-gB-d07"/>
                                         <include reference="Upk-e4-YOx"/>
                                     </mask>
@@ -197,9 +338,6 @@
                                 <exclude reference="Etd-eb-U4l"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="630-PE-S9j"/>
-                                <exclude reference="D27-eu-a7f"/>
-                                <exclude reference="G2Z-KH-xI1"/>
                                 <exclude reference="0Li-zw-ZtQ"/>
                                 <exclude reference="TvN-of-ZLq"/>
                                 <exclude reference="q86-cT-Yec"/>
@@ -209,6 +347,9 @@
                                 <exclude reference="5Vl-5p-xxH"/>
                                 <exclude reference="Kcr-it-YgG"/>
                                 <exclude reference="ypV-t5-431"/>
+                                <exclude reference="630-PE-S9j"/>
+                                <exclude reference="D27-eu-a7f"/>
+                                <exclude reference="G2Z-KH-xI1"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact-widthClass=regular">
@@ -217,9 +358,6 @@
                                 <include reference="Etd-eb-U4l"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="630-PE-S9j"/>
-                                <include reference="D27-eu-a7f"/>
-                                <include reference="G2Z-KH-xI1"/>
                                 <include reference="0Li-zw-ZtQ"/>
                                 <exclude reference="TvN-of-ZLq"/>
                                 <include reference="q86-cT-Yec"/>
@@ -229,19 +367,28 @@
                                 <include reference="5Vl-5p-xxH"/>
                                 <include reference="Kcr-it-YgG"/>
                                 <include reference="ypV-t5-431"/>
+                                <exclude reference="630-PE-S9j"/>
+                                <include reference="D27-eu-a7f"/>
+                                <include reference="G2Z-KH-xI1"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="bricksBrokenLabel" destination="PAw-aQ-rno" id="yw7-Hw-JyM"/>
+                        <outlet property="gameOverLabel" destination="hY3-Sp-erZ" id="qJe-lR-Oid"/>
                         <outlet property="gameView" destination="Etd-eb-U4l" id="jbV-xf-Nqe"/>
+                        <outlet property="levelsPassedLabel" destination="X8E-as-SkE" id="zhL-Es-aFy"/>
+                        <outlet property="livesLostLabel" destination="3gj-As-3lV" id="buL-wY-Pgf"/>
                         <outlet property="livesView" destination="vce-Ri-lpY" id="hZM-bL-1CJ"/>
                         <outlet property="playButton" destination="30p-JB-vUX" id="2zV-g7-02O"/>
                         <outlet property="scoreLabel" destination="MuX-Ut-SjF" id="FzA-Sm-Epe"/>
+                        <outlet property="scoreTotalLabel" destination="dXh-63-ReT" id="fMH-Bc-Koj"/>
                         <outlet property="titleLabel" destination="SXs-rH-7fP" id="WSv-qz-rjq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="569" y="381"/>
         </scene>
     </scenes>
     <resources>

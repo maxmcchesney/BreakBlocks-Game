@@ -10,7 +10,7 @@ import UIKit
 
 @IBDesignable class LivesView: UIView {
 
-    @IBInspectable var livesLeft: Int = 3 {
+    @IBInspectable var livesLeft: Int = 5 {
         didSet {
             setNeedsDisplay()
         }
