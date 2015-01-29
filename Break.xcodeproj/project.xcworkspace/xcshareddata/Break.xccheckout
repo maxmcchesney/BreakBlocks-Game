@@ -10,31 +10,31 @@
 	<string>Break</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>7909B5EB613DAF4853C5B9962B82A9162F5A88C9</key>
-		<string>https://github.com/maxmcchesney/iOS-Apps.git</string>
+		<key>4C4D8B74B6823CDCDD74C9E4FAEF6B4FD51D76CC</key>
+		<string>https://github.com/maxmcchesney/BreakBlocks-Game.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Break/Break.xcodeproj</string>
+	<string>Break.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>7909B5EB613DAF4853C5B9962B82A9162F5A88C9</key>
-		<string>../../..</string>
+		<key>4C4D8B74B6823CDCDD74C9E4FAEF6B4FD51D76CC</key>
+		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/maxmcchesney/iOS-Apps.git</string>
+	<string>https://github.com/maxmcchesney/BreakBlocks-Game.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>7909B5EB613DAF4853C5B9962B82A9162F5A88C9</string>
+	<string>4C4D8B74B6823CDCDD74C9E4FAEF6B4FD51D76CC</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>7909B5EB613DAF4853C5B9962B82A9162F5A88C9</string>
+			<string>4C4D8B74B6823CDCDD74C9E4FAEF6B4FD51D76CC</string>
 			<key>IDESourceControlWCCName</key>
-			<string>iOS-Apps</string>
+			<string>Break</string>
 		</dict>
 	</array>
 </dict>

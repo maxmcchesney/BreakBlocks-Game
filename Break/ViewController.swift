@@ -16,9 +16,19 @@ class ViewController: UIViewController, UICollisionBehaviorDelegate {
     @IBOutlet weak var gameView: UIView!
     @IBOutlet weak var livesView: LivesView!
     @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var playButton: UIButton!
     
     var score: Int = 0 {
         didSet {
+            GameData.mainData().topScore = score
+
+            if score > GameData.mainData().topScore { GameData.mainData().topScore = score }
+
+            GameData.mainData().currentGame?["totalScore"] = score
+
+//            println(GameData.mainData().currentGame)
+            
             scoreLabel.text = "\(score)"
         }
     }
@@ -32,6 +42,8 @@ class ViewController: UIViewController, UICollisionBehaviorDelegate {
     var paddleBehavior = UIDynamicItemBehavior()
     
     var paddle = UIView(frame: CGRectMake(0, 0, 100, 10))
+    
+    var index = 0       // FOR FACE ARRAY
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,8 +66,6 @@ class ViewController: UIViewController, UICollisionBehaviorDelegate {
         collisionBehavior.addBoundaryWithIdentifier("rightWall", fromPoint: CGPointMake(SCREEN_WIDTH, 0), toPoint: CGPointMake(SCREEN_WIDTH, SCREEN_HEIGHT))
         collisionBehavior.addBoundaryWithIdentifier("lava", fromPoint: CGPointMake( 0, SCREEN_HEIGHT - 30), toPoint: CGPointMake(SCREEN_WIDTH, SCREEN_HEIGHT - 30))
         
-        println(collisionBehavior.boundaryIdentifiers)
-        
 //        CONFIGURE BALL BEHAVIOR
         ballBehavior.friction = 0
         ballBehavior.elasticity = 1
@@ -66,12 +76,64 @@ class ViewController: UIViewController, UICollisionBehaviorDelegate {
         brickBehavior.density = 1000000
         paddleBehavior.density = 1000000
         
-//        RUN METHODS TO CREATE BALLS, BRICKS, AND PADDLE
+
+
+    }
+    
+    @IBAction func playGame() {
+        
+        GameData.mainData().startGame()
+
+        titleLabel.hidden = true
+        playButton.hidden = true
+        
+        score = 0
+        livesView.livesLeft = 5
+        index = 0
+        
         createPaddle()
         createBricks()
         createBall()
-
+        
     }
+    
+    func endGame(gameOver: Bool) {
+        
+        if gameOver {
+            GameData.mainData().currentLevel = 0
+        } else {
+            GameData.mainData().currentLevel + 1
+        }
+        
+        println(GameData.mainData().gamesPlayed.count)
+        println(GameData.mainData().topScore)
+        
+        titleLabel.hidden = false
+        playButton.hidden = false
+        
+//        REMOVE PADDLE
+        paddle.removeFromSuperview()
+        collisionBehavior.removeItem(paddle)
+        paddleBehavior.removeItem(paddle)
+        
+//        REMOVE BRICKS
+        for brick in brickBehavior.items as [UIView] {
+            brick.removeFromSuperview()
+            collisionBehavior.removeItem(brick)
+            brickBehavior.removeItem(brick)
+        }
+        
+//        REMOVE BALL
+        
+        for ball in ballBehavior.items as [UIView] {
+            ball.removeFromSuperview()
+            collisionBehavior.removeItem(ball)
+            ballBehavior.removeItem(ball)
+        }
+        
+    }
+    
+    
     
 //    LISTEN FOR COLLISSIONS WITH THE BRICKS
     func collisionBehavior(behavior: UICollisionBehavior, beganContactForItem item1: UIDynamicItem, withItem item2: UIDynamicItem, atPoint p: CGPoint) {
@@ -90,6 +152,8 @@ class ViewController: UIViewController, UICollisionBehaviorDelegate {
 //                INCREASE SCORE AND MAKE ANIMATED SCORE APPEAR WHEN BRICKS ARE DESTROYED
                 score += 100
                 
+                GameData.mainData().adjustValue(1, forKey: "bricksBusted")
+                
                 var pointsLabel = UILabel(frame: brick.frame)
                 pointsLabel.text = "+100"
                 pointsLabel.textAlignment = .Center
@@ -106,14 +170,29 @@ class ViewController: UIViewController, UICollisionBehaviorDelegate {
                 
             }
         }
+        
+        if brickBehavior.items.count == 0 {
+            endGame(false)
+        }
     }
     
+
 //    CREATE THE BALL / HEAD IMAGE
     func createBall() {
 
-        let face = "Jos_face_small.png"
-        let image = UIImage(named: face)
-        let ball = UIImageView(image: image!)
+        let faces = ["Jos_face_small.png", "Ellie_face_small.png", "Meg_face_small.png", "Sam_face_small.png", "Ally_face_small.png", "Maddie_face_small.png"]
+ 
+//        var face = faces[Int(arc4random_uniform(UInt32(faces.count)))]        // MAKE FACES RANDOM RATHER THAN SEQUENTIAL
+        var face = faces[index]
+
+        if index > faces.count {
+            index = 0
+        } else {
+            index++
+        }
+        println(index)
+        var image = UIImage(named: face)
+        var ball = UIImageView(image: image!)
         ball.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         gameView.addSubview(ball)
         
@@ -148,15 +227,9 @@ class ViewController: UIViewController, UICollisionBehaviorDelegate {
                 
                 ball.removeFromSuperview()
                 
-                if livesView.livesLeft == 0 {
-                // GAME OVER
-                   
-//                    var gameOver = UIButton((frame: CGRectMake(0, 100, 250, 100))
-//                    gameOver.backgroundColor = UIColor.whiteColor()
-                    
-                    
-                    return
-                }
+                if livesView.livesLeft == 0 { endGame(true); return }
+                
+                GameData.mainData().adjustValue(1 , forKey: "livesLost")
                 
                 livesView.livesLeft--
                 
@@ -169,7 +242,7 @@ class ViewController: UIViewController, UICollisionBehaviorDelegate {
 //    CREATE THE BRICKS
     func createBricks() {
         
-        var grid = (6,4)        // Tuple  grid.0, grid.1, etc.
+        var grid = GameData.mainData().allLevels[GameData.mainData().currentLevel]        // Tuple  grid.0, grid.1, etc.
         var gap: CGFloat = 10
         var width = (SCREEN_WIDTH - (gap * CGFloat(grid.0 + 1))) / CGFloat(grid.0)
         var height: CGFloat = 20
@@ -204,15 +277,19 @@ class ViewController: UIViewController, UICollisionBehaviorDelegate {
         
         paddle.center.x = view.center.x
         paddle.center.y = SCREEN_HEIGHT - 40
-        paddle.backgroundColor = UIColor.blueColor()
+        paddle.backgroundColor = UIColor.blackColor()
         paddle.layer.cornerRadius = 3
         gameView.addSubview(paddle)
         
         collisionBehavior.addItem(paddle)
         paddleBehavior.addItem(paddle)
         
-        attachmentBehavior = UIAttachmentBehavior(item: paddle, attachedToAnchor: paddle.center)
-        animator?.addBehavior(attachmentBehavior)
+        if attachmentBehavior == nil {
+
+            attachmentBehavior = UIAttachmentBehavior(item: paddle, attachedToAnchor: paddle.center)
+            animator?.addBehavior(attachmentBehavior)
+            
+        }
         
     }
     
@@ -225,12 +302,6 @@ class ViewController: UIViewController, UICollisionBehaviorDelegate {
 //            paddle.center.x = location.x
             attachmentBehavior?.anchorPoint.x = location.x
         }
-    }
-    
-    @IBAction func changeFace(sender: AnyObject) {
-    
-        println("Change Face Pressed")
-        
     }
 
     override func didReceiveMemoryWarning() {

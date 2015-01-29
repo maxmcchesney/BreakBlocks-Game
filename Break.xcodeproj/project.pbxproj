@@ -14,6 +14,8 @@
 		D8274EB11A792E740019823C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8274EAF1A792E740019823C /* LaunchScreen.xib */; };
 		D8274EBD1A792E740019823C /* BreakTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8274EBC1A792E740019823C /* BreakTests.swift */; };
 		D8274ECB1A7970D50019823C /* LivesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8274ECA1A7970D50019823C /* LivesView.swift */; };
+		D8274ECD1A7A78B50019823C /* Cubano-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = D8274ECC1A797E6D0019823C /* Cubano-Regular.otf */; };
+		D8274ECF1A7A81500019823C /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8274ECE1A7A81500019823C /* GameData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +41,7 @@
 		D8274EBC1A792E740019823C /* BreakTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakTests.swift; sourceTree = "<group>"; };
 		D8274ECA1A7970D50019823C /* LivesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LivesView.swift; path = ../LivesView.swift; sourceTree = "<group>"; };
 		D8274ECC1A797E6D0019823C /* Cubano-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Cubano-Regular.otf"; path = "../Cubano-Regular.otf"; sourceTree = "<group>"; };
+		D8274ECE1A7A81500019823C /* GameData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				D8274ECA1A7970D50019823C /* LivesView.swift */,
+				D8274ECE1A7A81500019823C /* GameData.swift */,
 				D8274EA81A792E740019823C /* ViewController.swift */,
 				D8274EAA1A792E740019823C /* Main.storyboard */,
 				D8274EA41A792E740019823C /* Supporting Files */,
@@ -197,6 +201,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8274ECD1A7A78B50019823C /* Cubano-Regular.otf in Resources */,
 				D8274EAC1A792E740019823C /* Main.storyboard in Resources */,
 				D8274EB11A792E740019823C /* LaunchScreen.xib in Resources */,
 				D8274EAE1A792E740019823C /* Images.xcassets in Resources */,
@@ -218,6 +223,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8274EA91A792E740019823C /* ViewController.swift in Sources */,
+				D8274ECF1A7A81500019823C /* GameData.swift in Sources */,
 				D8274EA71A792E740019823C /* AppDelegate.swift in Sources */,
 				D8274ECB1A7970D50019823C /* LivesView.swift in Sources */,
 			);
@@ -411,6 +417,7 @@
 				D8274EC21A792E740019823C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D8274EC31A792E740019823C /* Build configuration list for PBXNativeTarget "BreakTests" */ = {
 			isa = XCConfigurationList;
@@ -419,6 +426,7 @@
 				D8274EC51A792E740019823C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
