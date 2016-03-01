@@ -82,7 +82,7 @@ class GameData: NSObject {
     
     func adjustValue(difference: Int, forKey key: String) {
         
-        if var value =  currentGame?[key] {
+        if let value =  currentGame?[key] {
             currentGame?[key] = value + difference
         }
         
