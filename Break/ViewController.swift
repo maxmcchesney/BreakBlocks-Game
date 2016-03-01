@@ -8,6 +8,14 @@
 
 import UIKit
 
+// HOMEWORK
+
+// - DONE - don't reset lives if going to new level
+// - DONE - add at least 10 more levels
+// - DONE - add labels in storyboard, that will be hidden during gameplay
+//   these will show up at the end of a level
+//   they will have the score, lives lost, bricks broken, and levels passed
+
 class ViewController: UIViewController, UICollisionBehaviorDelegate {
 
     let SCREEN_WIDTH = UIScreen.mainScreen().bounds.width
@@ -19,19 +27,12 @@ class ViewController: UIViewController, UICollisionBehaviorDelegate {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var playButton: UIButton!
     
-    var score: Int = 0 {
-        didSet {
-            GameData.mainData().topScore = score
-
-            if score > GameData.mainData().topScore { GameData.mainData().topScore = score }
-
-            GameData.mainData().currentGame?["totalScore"] = score
-
-//            println(GameData.mainData().currentGame)
-            
-            scoreLabel.text = "\(score)"
-        }
-    }
+    @IBOutlet weak var levelsPassedLabel: UILabel!
+    @IBOutlet weak var scoreTotalLabel: UILabel!
+    @IBOutlet weak var bricksBrokenLabel: UILabel!
+    @IBOutlet weak var livesLostLabel: UILabel!
+    
+    @IBOutlet weak var gameOverLabel: UILabel!
     
     var animator: UIDynamicAnimator?
     
@@ -44,6 +45,42 @@ class ViewController: UIViewController, UICollisionBehaviorDelegate {
     var paddle = UIView(frame: CGRectMake(0, 0, 100, 10))
     
     var index = 0       // FOR FACE ARRAY
+    var facesCount = 0
+    var gameInProgress = false
+    
+    var score: Int = 0 {
+        didSet {
+            if score > GameData.mainData().topScore { GameData.mainData().topScore = score }
+            GameData.mainData().currentGame?["totalScore"] = score
+            scoreLabel.text = "\(score)"
+            scoreTotalLabel.text = "Score Total: \(score)"
+        }
+    }
+    
+    var levelsWon: Int = 0 {
+        didSet {
+            if levelsWon > GameData.mainData().levelsPassed { GameData.mainData().levelsPassed = levelsWon }
+            GameData.mainData().currentGame?["levelBeaten"] = levelsWon
+            levelsPassedLabel.text = "Levels passed: \(levelsWon)"
+        }
+    }
+    
+    var livesLost: Int = 0 {
+        didSet {
+            if livesLost > GameData.mainData().livesLost { GameData.mainData().livesLost = livesLost }
+            GameData.mainData().currentGame?["livesLost"] = livesLost
+            livesLostLabel.text = "Lives lost: \(livesLost)"
+        }
+    }
+    
+    var bricksBroken: Int = 0 {
+        didSet {
+            if bricksBroken > GameData.mainData().bricksBroken { GameData.mainData().bricksBroken = bricksBroken }
+            GameData.mainData().currentGame?["bricksBusted"] = bricksBroken
+            bricksBrokenLabel.text = "Bricks busted: \(bricksBroken)"
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,26 +107,46 @@ class ViewController: UIViewController, UICollisionBehaviorDelegate {
         ballBehavior.friction = 0
         ballBehavior.elasticity = 1
         ballBehavior.resistance = 0
-        ballBehavior.allowsRotation = false
+        ballBehavior.allowsRotation = true
+        ballBehavior.angularResistance = 0
+
+//        CONFIGURE PADDLE BEHAVIOR
+        paddleBehavior.allowsRotation = false
 
 //        CONFIGURE BRICK AND BALL DENSITIES
         brickBehavior.density = 1000000
         paddleBehavior.density = 1000000
         
-
-
-    }
-    
-    @IBAction func playGame() {
+//        HIDE LABELS IN BEGINNING
+        livesLostLabel.hidden = true
+        bricksBrokenLabel.hidden = true
+        levelsPassedLabel.hidden = true
+        scoreTotalLabel.hidden = true
+        gameOverLabel.hidden = true
         
-        GameData.mainData().startGame()
+    }
+
+    @IBAction func playGame() {
 
         titleLabel.hidden = true
         playButton.hidden = true
         
-        score = 0
-        livesView.livesLeft = 5
-        index = 0
+        livesLostLabel.hidden = true
+        bricksBrokenLabel.hidden = true
+        levelsPassedLabel.hidden = true
+        scoreTotalLabel.hidden = true
+        gameOverLabel.hidden = true
+
+        GameData.mainData().startGame()
+        
+        if !gameInProgress {
+            score = 0
+            livesView.livesLeft = 5
+            bricksBroken = 0
+            livesLost = 0
+            levelsWon = 0
+            
+        }
         
         createPaddle()
         createBricks()
@@ -101,15 +158,25 @@ class ViewController: UIViewController, UICollisionBehaviorDelegate {
         
         if gameOver {
             GameData.mainData().currentLevel = 0
+            gameInProgress = false
+            gameOverLabel.hidden = false
         } else {
-            GameData.mainData().currentLevel + 1
+            GameData.mainData().currentLevel++
+            levelsWon++
+            gameInProgress = true
         }
-        
-        println(GameData.mainData().gamesPlayed.count)
-        println(GameData.mainData().topScore)
+        print("Current level: \(GameData.mainData().currentLevel)")
+        print("Games played: \(GameData.mainData().gamesPlayed.count)")
+        print("Top score: \(GameData.mainData().topScore)")
+        print("Levels passed: \(GameData.mainData().levelsPassed)")
         
         titleLabel.hidden = false
         playButton.hidden = false
+        
+        livesLostLabel.hidden = false
+        bricksBrokenLabel.hidden = false
+        levelsPassedLabel.hidden = false
+        scoreTotalLabel.hidden = false
         
 //        REMOVE PADDLE
         paddle.removeFromSuperview()
@@ -117,15 +184,14 @@ class ViewController: UIViewController, UICollisionBehaviorDelegate {
         paddleBehavior.removeItem(paddle)
         
 //        REMOVE BRICKS
-        for brick in brickBehavior.items as [UIView] {
+        for brick in brickBehavior.items as! [UIView] {
             brick.removeFromSuperview()
             collisionBehavior.removeItem(brick)
             brickBehavior.removeItem(brick)
         }
         
 //        REMOVE BALL
-        
-        for ball in ballBehavior.items as [UIView] {
+        for ball in ballBehavior.items as! [UIImageView] {
             ball.removeFromSuperview()
             collisionBehavior.removeItem(ball)
             ballBehavior.removeItem(ball)
@@ -141,13 +207,13 @@ class ViewController: UIViewController, UICollisionBehaviorDelegate {
         ballBehavior.items
         brickBehavior.items
         
-        for brick in brickBehavior.items as [UIView] {
+        for brick in brickBehavior.items as! [UIView] {
             if brick.isEqual(item1) || brick.isEqual(item2) {
                 
                 brickBehavior.removeItem(brick)
                 collisionBehavior.removeItem(brick)
                 brick.removeFromSuperview()
-                
+                bricksBroken++
                 
 //                INCREASE SCORE AND MAKE ANIMATED SCORE APPEAR WHEN BRICKS ARE DESTROYED
                 score += 100
@@ -180,20 +246,19 @@ class ViewController: UIViewController, UICollisionBehaviorDelegate {
 //    CREATE THE BALL / HEAD IMAGE
     func createBall() {
 
-        let faces = ["Jos_face_small.png", "Ellie_face_small.png", "Meg_face_small.png", "Sam_face_small.png", "Ally_face_small.png", "Maddie_face_small.png"]
+        let faces = ["Mom_face_small.png", "Ruby_face_small.png", "Mitch_face_small.png", "Meg_face_small.png", "Ellie_face_small.png", "Ally_face_small.png", "Maddie_face_small.png", "Sam_face_small.png"]
  
 //        var face = faces[Int(arc4random_uniform(UInt32(faces.count)))]        // MAKE FACES RANDOM RATHER THAN SEQUENTIAL
-        var face = faces[index]
 
-        if index > faces.count {
+        facesCount = faces.count
+        if ++index >= facesCount {
             index = 0
-        } else {
-            index++
         }
-        println(index)
-        var image = UIImage(named: face)
-        var ball = UIImageView(image: image!)
-        ball.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        let face = faces[index]
+        
+        let image = UIImage(named: face)
+        let ball = UIImageView(image: image!)
+        ball.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
         gameView.addSubview(ball)
         
         ball.center.x = paddle.center.x
@@ -208,19 +273,19 @@ class ViewController: UIViewController, UICollisionBehaviorDelegate {
         collisionBehavior.addItem(ball)
         ballBehavior.addItem(ball)
         
-        var pushBehavior = UIPushBehavior(items: [ball], mode: .Instantaneous)
-        pushBehavior.pushDirection = CGVectorMake(0.25, -0.25)
+        let pushBehavior = UIPushBehavior(items: [ball], mode: .Instantaneous)
+        pushBehavior.pushDirection = CGVectorMake(0.75, -0.75)
         animator?.addBehavior(pushBehavior)
     }
     
 //    SET COLLISION BEHAVIOR IF THE BALL HITS THE "LAVA" BOUNDARY
-    func collisionBehavior(behavior: UICollisionBehavior, beganContactForItem item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying, atPoint p: CGPoint) {
+    func collisionBehavior(behavior: UICollisionBehavior, beganContactForItem item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?, atPoint p: CGPoint) {
         
         if let id = identifier as? String {
         
             if id == "lava" {
             
-                var ball = item as UIView
+                var ball = item as! UIImageView
                 
                 collisionBehavior.removeItem(ball)
                 ballBehavior.removeItem(ball)
@@ -232,6 +297,7 @@ class ViewController: UIViewController, UICollisionBehaviorDelegate {
                 GameData.mainData().adjustValue(1 , forKey: "livesLost")
                 
                 livesView.livesLeft--
+                livesLost++
                 
                 createBall()
                 
@@ -242,21 +308,21 @@ class ViewController: UIViewController, UICollisionBehaviorDelegate {
 //    CREATE THE BRICKS
     func createBricks() {
         
-        var grid = GameData.mainData().allLevels[GameData.mainData().currentLevel]        // Tuple  grid.0, grid.1, etc.
-        var gap: CGFloat = 10
-        var width = (SCREEN_WIDTH - (gap * CGFloat(grid.0 + 1))) / CGFloat(grid.0)
-        var height: CGFloat = 20
+        let grid = GameData.mainData().allLevels[GameData.mainData().currentLevel]        // Tuple  grid.0, grid.1, etc.
+        let gap: CGFloat = 10
+        let width = (SCREEN_WIDTH - (gap * CGFloat(grid.0 + 1))) / CGFloat(grid.0)
+        let height: CGFloat = 20
         
         for c in 0..<grid.0 {
             
             for r in 0..<grid.1 {
             
-                var x = CGFloat(c) * (width + gap) + gap
-                var y = CGFloat(r) * (height + gap) + 70
+                let x = CGFloat(c) * (width + gap) + gap
+                let y = CGFloat(r) * (height + gap) + 45    // CHANGE DISTANCE FROM BRICKS TO TOP HERE
                 
-                var brick = UIView(frame: CGRectMake(x, y, width, height))
+                let brick = UIView(frame: CGRectMake(x, y, width, height))
                 brick.backgroundColor = UIColor.blackColor()
-                brick.layer.cornerRadius = 3
+                brick.layer.cornerRadius = 5
                 
                 gameView.addSubview(brick)
                 
@@ -276,7 +342,7 @@ class ViewController: UIViewController, UICollisionBehaviorDelegate {
     func createPaddle() {
         
         paddle.center.x = view.center.x
-        paddle.center.y = SCREEN_HEIGHT - 40
+        paddle.center.y = SCREEN_HEIGHT - 40    // CHANGE POSITION OF SLIDER HERE (BUT BEWARE)
         paddle.backgroundColor = UIColor.blackColor()
         paddle.layer.cornerRadius = 3
         gameView.addSubview(paddle)
@@ -287,22 +353,29 @@ class ViewController: UIViewController, UICollisionBehaviorDelegate {
         if attachmentBehavior == nil {
 
             attachmentBehavior = UIAttachmentBehavior(item: paddle, attachedToAnchor: paddle.center)
-            animator?.addBehavior(attachmentBehavior)
+            animator?.addBehavior(attachmentBehavior!)
             
         }
         
     }
-    
-//    LISTEN FOR TOUCHES TO MOVE THE PADDLE
-    override func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
+
+    //    LISTEN FOR TOUCHES TO MOVE THE PADDLE
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
-        if let touch = touches.allObjects.first as? UITouch {
-            
-            let location = touch.locationInView(gameView)
-//            paddle.center.x = location.x
-            attachmentBehavior?.anchorPoint.x = location.x
-        }
+        let touch = touches.first! as UITouch
+        let location = touch.locationInView(gameView)
+        attachmentBehavior?.anchorPoint.x = location.x
+        
+        
+//        if let touch = touches.first as? UITouch {
+//            
+//            let location = touch.locationInView(gameView)
+//            //            paddle.center.x = location.x
+//            attachmentBehavior?.anchorPoint.x = location.x
+//        }
+        
     }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

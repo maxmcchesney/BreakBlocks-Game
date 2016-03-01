@@ -14,6 +14,12 @@ class GameData: NSObject {
     
     var topScore: Int = 0
     
+    var levelsPassed: Int = 0
+    
+    var livesLost: Int = 0
+    
+    var bricksBroken: Int = 0
+    
     var gamesPlayed: [[String:Int]] = []
     
     var currentGame: [String:Int]? {
@@ -34,8 +40,23 @@ class GameData: NSObject {
         (4,1),
         (6,2),
         (7,3),
-        (8,4)
-    
+        (8,4),
+        (8,5),
+        (8,6),
+        (6,7),
+        (2,8)
+
+//        FOR TESTING USE THESE LEVELS
+//        (2,1),
+//        (2,1),
+//        (2,1),
+//        (2,1),
+//        (2,1),
+//        (2,1),
+//        (2,1),
+//        (2,1)
+        
+        
     ]
     
     var currentLevel = 0
@@ -45,6 +66,10 @@ class GameData: NSObject {
     }
    
     func startGame() {
+        
+        levelsPassed = 0
+        livesLost = 0
+        bricksBroken = 0
         
         gamesPlayed.append([
             
@@ -57,7 +82,7 @@ class GameData: NSObject {
     
     func adjustValue(difference: Int, forKey key: String) {
         
-        if var value =  currentGame?[key] {
+        if let value =  currentGame?[key] {
             currentGame?[key] = value + difference
         }
         

@@ -10,7 +10,7 @@ import UIKit
 
 @IBDesignable class LivesView: UIView {
 
-    @IBInspectable var livesLeft: Int = 3 {
+    @IBInspectable var livesLeft: Int = 5 {
         didSet {
             setNeedsDisplay()
         }
@@ -21,13 +21,13 @@ import UIKit
     override func drawRect(rect: CGRect) {
         // Drawing code
         
-        var context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()
         
         let ballSize: CGFloat = 10
-        var topPadding: CGFloat = 15
+        let topPadding: CGFloat = 15
         
         let totalBallWidth = ballSize * CGFloat(livesLeft + livesLeft - 1)
-        var leftPadding = (rect.width - totalBallWidth) / 2.0
+        let leftPadding = (rect.width - totalBallWidth) / 2.0
         
         for i in 0..<livesLeft {
             
